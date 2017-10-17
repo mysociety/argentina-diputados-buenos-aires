@@ -30,6 +30,20 @@ for member in members:
 
     memberData['image'] = BASE_URL + member.cssselect('img')[0].attrib['src']
 
+    # Additional data is loaded via a somewhat silly AJAX fragment job:
+
+    moreUrl = 'https://www.hcdiputados-ba.gov.ar/includes/undiputado.php?c_codigo=' + memberData['id']
+
+    moreHtml = scraperwiki.scrape(moreUrl)
+
+    # This HTML is such a horrible mess it's easier (just about) to just regex the bits we need out.
+
+    partyRegex = re.search('Bloque:&nbsp;\s*(.*?)\s*</h5>', moreHtml)
+    memberData['party'] = partyRegex.group(1)
+
+    districtRegex = re.search('Distrito:&nbsp; </b>\s*(.*?)\s*</div>', moreHtml)
+    memberData['district'] = districtRegex.group(1)
+
     print memberData
 
     parsedMembers.append(memberData)
