@@ -44,6 +44,9 @@ for member in members:
     districtRegex = re.search('Distrito:&nbsp; </b>\s*(.*?)\s*</div>', moreHtml)
     memberData['district'] = districtRegex.group(1)
 
+    sectionRegex = re.search('Seccion Electoral:&nbsp;</b>\s*(.*?)\s*</div>', moreHtml)
+    memberData['section'] = sectionRegex.group(1)
+
     print memberData
 
     parsedMembers.append(memberData)
