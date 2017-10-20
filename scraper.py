@@ -4,6 +4,7 @@ import scraperwiki
 import lxml.html
 import sqlite3
 import re
+import time
 
 BASE_URL = 'https://www.hcdiputados-ba.gov.ar/'
 
@@ -50,6 +51,9 @@ for member in members:
     print memberData
 
     parsedMembers.append(memberData)
+
+    # Sleep for a bit, let their server cool down
+    time.sleep(4)
 
 print 'Counted {} Members'.format(len(parsedMembers))
 
